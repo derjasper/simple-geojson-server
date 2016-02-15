@@ -1,0 +1,5 @@
+LevelStore/*
+data/*
+config.js
+statistics.js
+node_modules

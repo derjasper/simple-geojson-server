@@ -1,0 +1,22 @@
+{
+  "name": "simple-geojson-server",
+  "version": "1.0.0",
+  "description": "Transform GeoJSON files into a REST API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jasper Nalbach",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.13.4",
+    "jsonfile": "^2.2.3",
+    "leveldown": "^1.4.4",
+    "nconf": "^0.8.2",
+    "rimraf": "^2.5.1",
+    "terraformer": "^1.0.5",
+    "terraformer-geostore": "^1.0.4",
+    "terraformer-geostore-leveldb": "^1.1.1",
+    "terraformer-rtree": "^1.0.0"
+  }
+}

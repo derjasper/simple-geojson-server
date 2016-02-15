@@ -1,0 +1,18 @@
+{
+  "http": {
+    "port": 8081
+  },
+  "localsocket": {
+    "file": "/tmp/simple-geojson-server.sock"
+  },
+  "statistics": {
+    "file": "statistics.json"
+  },
+  "services": {
+    "fuelSpain": {
+      "file": "data/fuelSpain.geojson",
+      "limit": 25,
+      "radius": 25000
+    }
+  }
+}
