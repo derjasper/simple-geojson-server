@@ -1,6 +1,6 @@
 # simple-geojson-server
 
-This is a simple HTTP server that reads data from [[GeoJSON|http://geojson.org/]] files and makes the data available via a RESTful API.
+This is a simple HTTP server that reads data from [GeoJSON](http://geojson.org/) files and makes the data available via a RESTful API.
 
 ## Data format
 
