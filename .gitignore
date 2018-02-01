@@ -1,5 +1,5 @@
 LevelStore/*
 data/*
-config.js
-statistics.js
+config.json
+statistics.json
 node_modules
