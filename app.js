@@ -39,25 +39,29 @@ var serviceStates = {
     READY: 2
 };
 var services = nconf.get('services');
-for (var key in services) {
-  services[key].store = null;
-  services[key].status = serviceStates.STARTING;
+function initServices() {
+  for (var key in services) {
+    services[key].store = null;
+    services[key].status = serviceStates.STARTING;
 
-  updateStore(key);
+    updateStore(key);
+  }
 }
+initServices()
 
-function updateStore(service) {
-  console.log("Updating service ", service);
+
+function updateStore(key) {
+  console.log("Updating service ", key);
   // read file // TODO use a more memory-efficient way to parse data (json-stream)
-  fs.readFile(services[service].file, 'utf8', function (err, data) {
+  fs.readFile(services[key].file, 'utf8', function (err, data) {
     if (err) {
-      console.log( "Accessing file for service ", service,  "failed: ", err );
+      console.log( "Accessing file for service ", key,  "failed: ", err );
       services[key].status = serviceStates.ERROR;
     }
     else {
       // create new store
       var store = new GeoStore({
-        store: new LevelStore("LevelStore/"+service+"_"+Math.random().toString(36).substr(2, 9)+".leveldb"),
+        store: new LevelStore("LevelStore/"+key+"_"+Math.random().toString(36).substr(2, 9)+".leveldb"),
         index: new RTree()
       });
       // process file
@@ -66,13 +70,13 @@ function updateStore(service) {
         jsonData = JSON.parse(data);
       }
       catch(err) {
-        console.log( "Parsing data for service ", service,  "failed: ", err );
+        console.log( "Parsing data for service ", key,  "failed: ", err );
         services[key].status = serviceStates.ERROR;
       }
       if (jsonData!=null) {
         store.add(jsonData, function (err, res) {
           if (err) {
-            console.log( "Processing data for service ", service,  "failed: ", err );
+            console.log( "Processing data for service ", key,  "failed: ", err );
             services[key].status = serviceStates.ERROR;
           }
           else {
@@ -80,7 +84,7 @@ function updateStore(service) {
             var oldStore = services[key].store;
             services[key].store = store;
             services[key].status = serviceStates.READY;
-            console.log("New database of Service ", service, " ready");
+            console.log("New database ", store.store.name, " of Service ", key, " ready");
             // delete old store
             if (oldStore != null) {
               closeLevelStore(oldStore.store);
